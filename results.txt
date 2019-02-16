@@ -1,0 +1,9 @@
+time is 0.0/15.0
+agent 1 moved to vertex 5
+agent 1 has 3 people in car
+agent 1 do 1 actions in total time of 1.0
+agents 1 score is 0
+
+time is 1.0/15.0
+the last action doesn't have enough time :( 
+agent 2 tried to go to vertex 1 but this action takes 100.0 time units
