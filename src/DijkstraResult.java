@@ -1,4 +1,3 @@
-
 public class DijkstraResult {
 	double distance[];
 	int prev[];

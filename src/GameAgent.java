@@ -3,7 +3,6 @@ import java.util.LinkedList;
 
 public abstract class GameAgent extends Agent{
    
-   
     StateNode head;
     Move nextMove;
     int numOfExpands; //for this round
@@ -14,58 +13,60 @@ public abstract class GameAgent extends Agent{
              if (o2.heuristic < o1.heuristic) return 1;
              if (o2.heuristic > o1.heuristic) return -1;
              return 0;
-         }
-     };
+         }  
+    };
      
-     Comparator <StateNode> stateNodeComparatorMaxToMin = new Comparator<StateNode>() {
-         @Override
-         public int compare(StateNode o1, StateNode o2) {
-             if (o2.heuristic < o1.heuristic) return -1;
-             if (o2.heuristic > o1.heuristic) return 1;
-             return 0;
-         }
-     };
+    Comparator <StateNode> stateNodeComparatorMaxToMin = new Comparator<StateNode>() {
+        @Override
+        public int compare(StateNode o1, StateNode o2) {
+            if (o2.heuristic < o1.heuristic) return -1;
+            if (o2.heuristic > o1.heuristic) return 1;
+            return 0;
+        }
+    };
      
- 
     public GameAgent(int agentTypes, int positions, int peopleInCar) {
         super(agentTypes, positions, peopleInCar);
     }
    
-    //from the node with max depth choose the one that have min heuristic
-    //check the best node according to agent type
+    /*From the node with max depth choose the one that have min heuristic
+     * Check the best node according to agent type */
     abstract double calcHeuristic(StateNode node);
-    
     abstract void sortChildren(LinkedList<StateNode> children, StateNode parent);
-    
-    abstract void updateParentsScore(StateNode parent, StateNode child);
-       
+    abstract void updateParentsScore(StateNode parent, StateNode child); 
     abstract boolean cutTree(StateNode child, StateNode parent);   
  
     public int calculateTree(int position){ //return next position
-  
     	int enemyIndex;
-	    if(Main.agents[0]==this)
-	        enemyIndex=1;
-	    else
-	        enemyIndex=0;
+    	
+	    if(Main.agents[0]==this) enemyIndex=1;
+	    else enemyIndex=0;
+	    
 	    int enemyPosition = Main.agents[enemyIndex].position;
 	    int enemyPeopleInCar = Main.agents[enemyIndex].peopleInCar;
 	    int enemyScore = Main.agents[enemyIndex].score;
 	    
-        head = new StateNode(position, enemyPosition, Main.peopleToSave.clone(), peopleInCar, enemyPeopleInCar, score,
-                enemyScore, Main.time, /*heuristic*/0, /*prev*/null, /*next*/null, /*children*/new LinkedList <StateNode>(), 0);
-       
-        head.heuristic = calcHeuristic(head);
-        
-	    
+        head = new StateNode(
+        		position, 
+        		enemyPosition, 
+        		Main.peopleToSave.clone(), 
+        		peopleInCar, 
+        		enemyPeopleInCar, 
+        		score,
+                enemyScore, 
+                Main.time, 
+                0, /*heuristic*/
+                null, /*prev*/
+                null, /*next*/
+                new LinkedList <StateNode>(), /*children*/
+                0);
+        head.heuristic = calcHeuristic(head);  
 	    evaluateSubTree(head);	   
         return head.next.agentPosition;
     }
 
-
     /* calculate state of children*/
     private StateNode evalNextNode(StateNode parent, int nextPosition, boolean isAgent) {
-        
         int agentPosition=parent.agentPosition;
         int opponentPosition = parent.opponentPosition;
         int[] peopleArr = parent.peopleArr.clone();
@@ -125,7 +126,6 @@ public abstract class GameAgent extends Agent{
         return res;
     }
 
-
     //return sub tree result
     private void evaluateSubTree(StateNode parent) {
         StateNode temp;
@@ -144,7 +144,6 @@ public abstract class GameAgent extends Agent{
         int position;
         if(parent.depth %2 == 0) position = parent.agentPosition;     //agent
         else position = parent.opponentPosition;                      //opponent
-      
        
         /*start of add vertex*/
         for (int i = 0; i < position; i++) {
@@ -193,7 +192,6 @@ public abstract class GameAgent extends Agent{
         return;
     }
       
-
      @Override
 	public double timeForNextAction() {
 	    nextMove = new Move(0,0);
@@ -205,7 +203,6 @@ public abstract class GameAgent extends Agent{
 	    return nextMove.timeForAction;
      }
 	  
-     
      @Override
  	public int doAction() {
     	position = nextMove.nextPosition;
@@ -245,7 +242,6 @@ class StateNode {
     LinkedList <StateNode> childern;
     int depth;
     double oppHeuristic=0;  
-   
    
     public StateNode(int agentPosition, int opponentPosition, int[] peopleArr, int peopleInAgentCar,
             int peopleInOpponentCar, int agentScore, int opponentScore, double time, double heuristic, StateNode prev, StateNode next, LinkedList<StateNode> children, int depth) {

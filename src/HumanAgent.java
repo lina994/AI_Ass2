@@ -4,11 +4,9 @@ public class HumanAgent extends Agent {
 
 	int usersDecition = -1;
 	
-	
     public HumanAgent(int agentTypes, int positions, int peopleInCar) {
         super(agentTypes, positions, peopleInCar);
     }
-    
     
 	@Override
 	public double timeForNextAction() {
@@ -54,9 +52,8 @@ public class HumanAgent extends Agent {
 		
 		//update position
 		position = usersDecition;
-
 		return position;
 	}
-
+	
 }
 

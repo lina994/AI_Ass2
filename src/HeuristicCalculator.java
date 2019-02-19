@@ -1,4 +1,3 @@
-
 public class HeuristicCalculator {
 
 	public static double calculateF(int agentIndex, int agentPosition,int[] people, int numOfPeopleInCar,double time, double personWeight, boolean type) {

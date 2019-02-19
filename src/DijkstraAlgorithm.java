@@ -1,8 +1,8 @@
 
 public class DijkstraAlgorithm {
 	
-	//v_peopleInCar==0 && destination==-1  ->  look for closer node with people
-	//v_peopleInCar==0 && destination>=0  ->    look for closer path to destination node
+	/* v_peopleInCar==0 && destination==-1  ->  look for closer node with people
+	 * v_peopleInCar==0 && destination>=0  ->   look for closer path to destination node */
 	
 	public static DijkstraResult dijkstra(int v_position, int v_peopleInCar, int destination) {
 		Node d[] = new Node[Main.vertexMatrix.length];
@@ -11,23 +11,19 @@ public class DijkstraAlgorithm {
 		Node node;
 		
 		for (int i = 0; i < Main.vertexMatrix.length; i++){
-			if(i==v_position)
-				node=new Node(i, 0);
-			else 
-				node=new Node(i, Double.POSITIVE_INFINITY);
+			if (i == v_position) node = new Node(i, 0);
+			else node = new Node(i, Double.POSITIVE_INFINITY);
 			minheap.insert(node);
 			d[i] = node;
-			prevVertex[i]= -1;
+			prevVertex[i] = -1;
 		}
 		
-		// early stop when goal!=-1
-		int goal = -1;
+		int goal = -1; // early stop when goal!=-1
 
 		while(!minheap.isEmpty()){
 			node = minheap.extractMin();
-			
-			// early stop
-			if(destination==-1) {
+
+			if(destination==-1) { // early stop
 				if((v_peopleInCar==0 && Main.peopleToSave[node.index]>0)||
 						(v_peopleInCar!=0 && Main.shelters[node.index])) {
 					goal = node.index;
@@ -66,10 +62,8 @@ public class DijkstraAlgorithm {
 		return new DijkstraResult(res, prevVertex, goal);	
 	}
 	
-	
 	public static double cTime(double w, int p, double k) {
 		return w*(p*k+1);
 	}
 	
-
 }

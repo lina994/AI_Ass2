@@ -4,7 +4,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner; 
 
-
 public class Main {
 		
 	//globals
@@ -35,7 +34,6 @@ public class Main {
 			totalNumOfPeople+=peopleToSave[i];
 		}
 		
-		
 		getInputsFromUser();
 		checkForPeopleInShelters();
 		checkForAgentsWithPeopleInCar();
@@ -52,7 +50,6 @@ public class Main {
 		}
 	}
 	
-
 	private static void getInputsFromUser(){
 		System.out.println("Please enter the type of game");
 		System.out.println("For ADVERSARIAL game press 1");
@@ -63,7 +60,6 @@ public class Main {
 			System.out.println("type of game should be 1-3.. Try again");
 			gameType = scan.nextInt();
 		}
-		
 		
 		System.out.println("Please enter number of agents");
 		int ans = scan.nextInt();
@@ -107,7 +103,6 @@ public class Main {
 					break;
 			}
 		}
-		
 		
 		System.out.println("Please enter the parameter k");		
 		double ans2 = scan.nextDouble();
@@ -228,7 +223,5 @@ public class Main {
 		return;
 		
 	}
-	
-	
 
 }

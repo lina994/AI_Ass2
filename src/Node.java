@@ -1,4 +1,3 @@
-
 public class Node{
 	int index;
 	double value;

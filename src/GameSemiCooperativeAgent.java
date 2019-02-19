@@ -1,7 +1,6 @@
 import java.util.Comparator;
 import java.util.LinkedList;
 
-
 public class GameSemiCooperativeAgent extends GameAgent {
 	
     Comparator<StateNode> semiStateNodeComparatorMinToMax = new Comparator<StateNode>() {
@@ -30,8 +29,6 @@ public class GameSemiCooperativeAgent extends GameAgent {
 		super(agentTypes, positions, peopleInCar);
 	}
 
-
-	
 	@Override
 	double calcHeuristic(StateNode node) {
 		double h1=HeuristicCalculator.calculateGameF(node,Main.mostHeavyEdge, true);
@@ -40,7 +37,6 @@ public class GameSemiCooperativeAgent extends GameAgent {
 		return h1;
 	}
 
-	
 	@Override
 	void sortChildren(LinkedList<StateNode> children, StateNode parent) {
 		
@@ -50,7 +46,6 @@ public class GameSemiCooperativeAgent extends GameAgent {
 			parent.childern.sort(semiStateNodeComparatorMinToMaxOppH);
 
 	}
-
 
 	@Override
 	void updateParentsScore(StateNode parent, StateNode child) {
@@ -71,7 +66,6 @@ public class GameSemiCooperativeAgent extends GameAgent {
 	    	}
 	    }  
 	}
-
 
 	@Override
 	boolean cutTree(StateNode child, StateNode parent) {

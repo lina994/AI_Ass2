@@ -1,6 +1,4 @@
-
 import java.util.LinkedList;
-
 
 public class AgentMinMax extends GameAgent{
 
@@ -8,43 +6,42 @@ public class AgentMinMax extends GameAgent{
 		super(agentTypes, positions, peopleInCar);
 	}
 
-	
 	@Override
 	double calcHeuristic(StateNode node) {
-		double h1=HeuristicCalculator.calculateGameF(node,Main.mostHeavyEdge,true);
-		double h2=HeuristicCalculator.calculateGameF(node,Main.mostHeavyEdge,false);
-		return h1-h2;
+		double h1 = HeuristicCalculator.calculateGameF(node,Main.mostHeavyEdge,true);
+		double h2 = HeuristicCalculator.calculateGameF(node,Main.mostHeavyEdge,false);
+		return h1 - h2;
 	}
-
 
 	@Override
 	void sortChildren(LinkedList<StateNode> children, StateNode parent) {
-		
-		if(parent.depth % 2 == 0) //for agent sort from min to max 
+		if(parent.depth % 2 == 0) { //for agent
 			parent.childern.sort(stateNodeComparatorMinToMax);
-	    else //for opponent sort from min to max
+		} else { //for opponent
 	        parent.childern.sort(stateNodeComparatorMaxToMin);
+		}
 	}
-
 
 	@Override
 	void updateParentsScore(StateNode parent, StateNode child) {
-		if(parent.depth % 2 == 0) { // agent
-			if((child.agentScore-child.opponentScore) > (parent.agentScore-parent.opponentScore) || parent.next==null) {
-				parent.agentScore = child.agentScore;
-				parent.opponentScore = child.opponentScore;
-				parent.next = child;
+		if(parent.next == null) {
+			doUpdate(parent, child);
+		} else if(parent.depth % 2 == 0) { // agent
+			if((child.agentScore-child.opponentScore) > (parent.agentScore - parent.opponentScore)) {
+				doUpdate(parent, child);
 			}
-		}
-	    else { // opponent
-	    	if((child.opponentScore-child.agentScore) > (parent.opponentScore-parent.agentScore) || parent.next==null) {
-	    		parent.agentScore = child.agentScore;
-				parent.opponentScore = child.opponentScore;
-				parent.next = child;
+		} else { // opponent
+	    	if((child.opponentScore-child.agentScore) > (parent.opponentScore - parent.agentScore)) {
+	    		doUpdate(parent, child);
 	    	}
 	    }
 	}
 	
+	private void doUpdate(StateNode parent, StateNode child) {
+		parent.agentScore = child.agentScore;
+		parent.opponentScore = child.opponentScore;
+		parent.next = child;
+	}
 	
 	boolean cutTree(StateNode child, StateNode parent) {
 		

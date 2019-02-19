@@ -5,13 +5,11 @@ import java.io.IOException;
 
 public class FileParser {
 	
-	
 	public int numOfVertex;
 	public double vertexMatrix[][];
 	public double deadline;
 	public int people[];
 	public boolean isShelter[];
-	
 	
 	public void parse (String fileName){
 		File file = new File("file.txt");
@@ -47,7 +45,6 @@ public class FileParser {
 		}
 	}
 	
-	
 	private void parseNumOfVertex(String input){  //#T 4
 		String[] array = input.split(" "); 
 		String s = array[0];
@@ -56,7 +53,6 @@ public class FileParser {
 		people = new int[numOfVertex];
 		isShelter = new boolean[numOfVertex];
 	}
-	
 	
 	private void parseEdge(String input){ //#E 1 2 W1
 		String[] array = input.split(" "); 
@@ -75,19 +71,15 @@ public class FileParser {
 			vertexMatrix[secondVertexIndex-1][firstVertexIndex-1] = vertexWeight;
 	}
 	
-	
 	private void parseVertex(String input){ // #V 2 P 1   #V 1 S 
 		String[] array = input.split(" "); 
 		int vertexIndex = Integer.parseInt(array[0]);
 		if(array[1].charAt(0)=='P')
-			people[vertexIndex-1]= Integer.parseInt(array[2]) ;
-		
+			people[vertexIndex-1]= Integer.parseInt(array[2]);
 		else if(array[1].charAt(0)=='S')
 			isShelter[vertexIndex-1]=true;
-		
 		else System.out.println("bad file syntax: " + array[1]);
 	}
-	
 	
 	private void parseDeadLine(String input){ //#D 10 
 		String[] array = input.split(" "); 
